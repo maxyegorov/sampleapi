@@ -5,13 +5,18 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
+  const swConfig = new DocumentBuilder()
     .setTitle('Sample API')
     .setDescription('Sample rest API created using Nestjs')
     .setVersion('1.0')
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('sw', app, document);
+
+  const swOptions = {
+    customSiteTitle: 'Sample API Docs',
+  };
+
+  const document = SwaggerModule.createDocument(app, swConfig);
+  SwaggerModule.setup('sw', app, document, swOptions);
 
   await app.listen(3000);
 }
